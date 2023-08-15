@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Loan {
+  id         String   @id @default(uuid())
+  min        Int
+  max        Int
+  prepayment Float    @db.Float
+  percent    Float    @db.Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  Product    Product  @relation(fields: [productId], references: [id], map: "OfferedLoans_ibfk_1")
+  productId  String
+  Provider   Provider @relation("offeredLoans", fields: [providerId], references: [id], map: "OfferedLoans_ibfk_2")
+  providerId String
+
+  @@index([productId])
+  @@index([providerId])
+}
+
+model TakenLoan {
+  id         String   @id @default(uuid())
+  amount     Int
+  time       Int
+  prepayment Float    @db.Float
+  percent    Float    @db.Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Provider   User    @relation("Provider_takenLoans", fields: [providerId], references: [id], map: "TakenLoans_ibfk_3")
+  // providerId String
+  Taker      User      @relation("takenLoans", fields: [takerId], references: [id], map: "TakenLoans_ibfk_1")
+  takerId    String
+  Product    Product   @relation(fields: [productId], references: [id], map: "TakenLoans_ibfk_2")
+  productId  String
+  Provider   Provider? @relation("givenLoans", fields: [providerId], references: [id])
+  providerId String?
+
+  // @@index([providerId])
+  @@index([productId])
+  @@index([takerId])
+}
+
+model Product {
+  id            String   @id @default(uuid())
+  name          String   @db.VarChar(255)
+  description   String   @db.Text
+  image         String?  @db.VarChar(255)
+  loans         Int?     @default(0)
+  prepayment    Int?     @default(0)
+  min           Int?     @default(0)
+  max           Int?     @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  price         Int
+  providerName  String
+  providerImage String
+
+  Loan       Loan[]
+  TakenLoans TakenLoan[]
+  Provider   Provider    @relation(fields: [providerId], references: [id])
+  providerId String
+
+  @@index([providerId])
+}
+
+// User stuff
+
+model Provider {
+  id               String      @id @default(cuid())
+  name             String?
+  image            String?
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  highestCredit    Int
+  website          String
+  specialContracts String
+  Loans            Loan[]      @relation("offeredLoans")
+  LoansGiven       TakenLoan[] @relation("givenLoans")
+  Products         Product[]
+  User             User        @relation(fields: [userId], references: [id])
+  userId           String      @unique
+}
+
+model User {
+  id            String      @id @default(cuid())
+  name          String?
+  email         String      @unique
+  emailVerified DateTime?
+  number        String?     @unique(map: "number")
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  Loans         TakenLoan[] @relation("takenLoans")
+  Provider      Provider?
+}
+
+// The prisma provider with next auth - don't modify
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

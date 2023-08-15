@@ -148,8 +148,8 @@ export function Header() {
   const { classes, theme } = useStyles();
 
   const links = mockdata.map((item) => (
-    <Link href={`/products?category=${item.title}`}>
-    <UnstyledButton className={classes.subLink} key={item.title}>
+    <Link href={`/products?category=${item.title}`} key={item.title}>
+    <UnstyledButton className={classes.subLink}>
       <Group noWrap align="flex-start">
         <ThemeIcon size={34} variant="default" radius="md">
           <item.icon size={rem(22)} color={theme.fn.primaryColor()} />

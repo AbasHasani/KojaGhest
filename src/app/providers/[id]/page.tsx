@@ -48,7 +48,7 @@ const Page = async ({ params: { id } }: Props) => {
         </p>
       </div>
       {/* Refrences */}
-      <div className="flex justify-around">
+      <div className="flex gap-5 flex-col md:flow-row justify-around">
         <div>
           <h2>سایت های طرف قرارداد</h2>
           <div>
@@ -60,7 +60,7 @@ const Page = async ({ params: { id } }: Props) => {
           <h2>محصولات:</h2>
           <div>
             {Array(3).fill(null).map((_,i) => (
-              <div key={i} className="flex items-center gap-5 p-1 mb-2 border rounded">
+              <div key={i} className="flex items-center justify-around gap-5 p-1 mb-2 border rounded">
                 <p>محصول {i}</p>
                 <p>قیمت: 12000000</p>
                 <div className="relative w-[5rem] h-[7rem]">

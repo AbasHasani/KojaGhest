@@ -26,13 +26,15 @@ const OnlineShops = ({loans}:any) => {
         <div>
           {loans
             .map((loan: any) => (
-              <div key={loan.id} className="grid grid-cols-3 gap-5 p-3 border-b">
-                <div className="ml-40">
+              <div key={loan.id} className="md:grid flex flex-col grid-cols-2 gap-5 p-3 border-b">
+                <div className="flex">
+
+                <div className="md:ml-40 ml-0">
                   <p className="font-bold text-lg text-black">{loan.providerId}</p>
                   <p className="font-light text-sm text-gray-600">تهران</p>
                 </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex gap-2">
+                <div className="flex flex-1 flex-col gap-2 min-w-[8rem]">
+                  <div className="flex flex-col md:flex-row gap-2">
                     <p className="flex items-center gap-1 bg-green-200 rounded">
                       <AiFillStar size={20} />
                       <span>5 (5سال در کجا قسط)</span>
@@ -44,10 +46,10 @@ const OnlineShops = ({loans}:any) => {
                   </div>
                   <div>
                     <p className="text-xl">قراره گوشی باشه با قیمت متفاوت</p>
-                    <p className="text-sm text-gray-600 font-light">
+                    <p className="text-sm text-gray-600 hidden md:block font-light">
                       رجیستر شده | 18 ماهه دیجی سرویس
                     </p>
-                    <p className="flex items-center">
+                    <p className="items-center hidden md:flex">
                       <MdLocationOn size={20} />
                       <span className="font-light">
                         آیا امکان پرداخت در محل من وجود دارد؟
@@ -56,7 +58,8 @@ const OnlineShops = ({loans}:any) => {
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col items-center gap-3">
+                </div>
+                <div className="flex w-full md:flex-col items-center justify-center md:gap-3">
                   <p className="bg-blue-600 text-white px-2 py-1 rounded">
                     آگهی
                   </p>

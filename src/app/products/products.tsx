@@ -17,7 +17,7 @@ interface Props {
 const Products: FC<Props> = ({ products }) => {
   const [sorting, setSorting] = useState("viewed");
   return (
-    <div className="flex-1">
+    <div className="flex-1 w-full">
       <Options changeSorting={setSorting} />
       <div className="grid grid-cols-fluid gap-2 justify-items-center">
         {products

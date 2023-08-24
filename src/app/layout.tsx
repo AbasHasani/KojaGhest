@@ -22,7 +22,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" dir="rtl">
-      <body className={`${vazir.className} overflow-x-hidden`}>
+      <body className={`${vazir.className}`}>
           <Provider>
             <Header />
             <main className="container mx-auto">{children}</main>

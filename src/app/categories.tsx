@@ -14,7 +14,7 @@ const Categories = () => {
   return (
     <div className="mb-10">
       <h2 className="text-center font-bold py-8 ">دسته بندی</h2>
-      <div className="flex justify-center gap-2 md:gap-0 overflow-auto pt-3">
+      <div className="flex md:justify-center gap-2 md:gap-0 overflow-auto pt-3">
         {categories.map((category, i) => (
           <Link
             href={`/products?category=${category.title}`}

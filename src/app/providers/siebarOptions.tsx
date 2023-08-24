@@ -3,7 +3,7 @@ import { Checkbox, Accordion, Divider } from "@mantine/core";
 
 const SideBar = () => {
   return (
-    <div className="sticky top-5 w-64 border border-info/20 rounded p-2">
+    <div className="w-64 border border-info/20 rounded p-2">
       <div className="mb-1 pb-1">
         <h3 className="mb-2 text-center">میزان اعتبار</h3>
         <div className="flex justify-center mb-1 border border-info/20 p-1 rounded">

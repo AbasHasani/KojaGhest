@@ -16,11 +16,11 @@ interface Props {
 
 const Heading: FC<Props> = ({ name, description, providerId, price }) => {
   return (
-    <div className="flex border p-5 rounded items-center">
-      <div className="relative h-[20rem] w-[10rem] overflow-hidden rounded ml-10">
+    <div className="flex flex-col md:flex-row border p-5 rounded items-center">
+      <div className="relative h-[20rem] w-[16rem] md:w-[10rem] overflow-hidden rounded ml-10">
         <Image fill src={"/p3.jpg"} className="object-cover" alt="" />
       </div>
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-3 flex-1 md:flex-none">
         <h1>{name}</h1>
         <p>{description}</p>
         <div className="grid grid-cols-3 gap-2 w-full my-5">
@@ -44,7 +44,7 @@ const Heading: FC<Props> = ({ name, description, providerId, price }) => {
             <p className="text-sm mr-2">گزارش</p>
           </div>
         </div>
-        <div className="bg-red-500 rounded w-full flex items-center justify-between px-5 py-3 text-white">
+        <div className="bg-red-500 rounded flex items-center min-w-[20rem] justify-between px-5 py-3 text-white">
           <div>
             <p className="mb-3">خرید از {providerId}</p>
             <p>{price}</p>

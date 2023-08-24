@@ -26,12 +26,12 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-around px-2 relative z-20">
-      <p className="font-extrabold text-3xl mb-10">
+    <div className="w-full flex flex-col items-center justify-around md:px-2 relative z-20">
+      <p className="font-extrabold md:text-3xl text-xl mb-10 text-center">
         سایتی برای پیدا کردن وام های مردمی
       </p>
       <Input
-        className="w-1/3"
+        className="md:w-1/3 w-[80%]"
         icon={<FiSearch />}
         placeholder="نام محصول ..."
         onChange={(e)=> setProductValue(e.target.value)}

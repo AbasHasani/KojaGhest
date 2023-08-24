@@ -2,6 +2,7 @@ import { prisma } from "@/db";
 import Options from "./options";
 import Provider from "./provider";
 import SideBar from "./siebarOptions";
+import Providers from "./providers";
 
 const providers = [
   {
@@ -49,18 +50,9 @@ const Page = async () => {
   const getu = await new Promise((res, rej) => setTimeout(() => res(""), 2000));
 
   return (
-    <div className="flex gap-2 items-start mt-5">
+    <div className="flex flex-col md:flex-row gap-2 items-start">
       <SideBar />
-      <div className="flex-1">
-        {/* <div className="flex justify-around border border-info/20 p-3 rounded"> */}
-        <Options options={options} />
-        {/* </div> */}
-        <div>
-          {providers.map((provider) => (
-            <Provider {...provider} key={provider.id} />
-          ))}
-        </div>
-      </div>
+      <Providers providers={providers} />
     </div>
   );
 };

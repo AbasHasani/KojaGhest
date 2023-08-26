@@ -118,7 +118,7 @@ export const ProfileForm: FC<Props> = ({ createShop }) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="bg-cyan-400">Submit</Button>
       </form>
     </Form>
   );

@@ -32,9 +32,9 @@ const Product: FC<Props> = ({
 }) => {
   const [openAddPanel, setOpenAddPanel] = useState(false);
   return (
-    <div className="bg-secondary text-secondary-foreground rounded overflow-hidden mb-2">
+    <div className="bg-emerald-500/30 rounded overflow-hidden mb-2">
       <div className="grid grid-cols-3">
-        <div className="flex gap-3 items-center bg-red-6000 p-1">
+        <div className="flex gap-3 items-center bg-red-6000 p-1 text-black">
           <div className="relative h-[8rem] w-[6rem] rounded overflow-hidden">
             <Image
               src={image || "/p4.jpg"}
@@ -48,7 +48,7 @@ const Product: FC<Props> = ({
             <p>{truncateString(description, 15)}</p>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3 p-2">
+        <div className="grid grid-cols-2 gap-3 p-2 text-cyan-100">
           <p className="text-center p-2 rounded bg-accent">حداقل: {min}</p>
           <p className="text-center p-2 rounded bg-accent">حداکثر: {max}</p>
           <p className="text-center p-2 rounded bg-accent">قیمت: {price}</p>
@@ -57,7 +57,7 @@ const Product: FC<Props> = ({
           </p>
         </div>
         <div className="p-5 grid place-items-center">
-          <Button onClick={() => setOpenAddPanel((prev) => !prev)}>اضافه کردن وام</Button>
+          <Button onClick={() => setOpenAddPanel((prev) => !prev)} className="bg-cyan-400">اضافه کردن وام</Button>
         </div>
       </div>
       {openAddPanel ? <ProductForm createLoan={createLoan} providerId={providerId} productId={id} /> : null}

@@ -11,7 +11,7 @@ const UserHeader: FC<{
   hasProvider: boolean;
 }> = ({ name, email, image, hasProvider }) => {
   return (
-    <div className="w-screen fullScreenMarginRight bg-secondary text-secondary-foreground">
+    <div className="w-screen fullScreenMarginRight bg-emerald-500 text-black">
       <div className="container flex gap-5 py-10 items-center">
         <div className="rounded-full relative w-[5rem] h-[5rem] overflow-hidden">
           <Image fill alt="" src={image || ""} />
@@ -21,11 +21,11 @@ const UserHeader: FC<{
           <p>{email}</p>
           {hasProvider ? (
             <Link href={`/user/shop`}>
-              <Button className="w-full">فروشگاه</Button>
+              <Button className="w-full bg-cyan-400">فروشگاه</Button>
             </Link>
           ) : (
             <Link href={"/user/buildshop"}>
-              <Button className="w-full">ساخت فروشگاه</Button>
+              <Button className="w-full bg-cyan-400">ساخت فروشگاه</Button>
             </Link>
           )}
         </div>

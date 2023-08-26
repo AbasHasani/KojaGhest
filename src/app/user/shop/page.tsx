@@ -133,7 +133,8 @@ const Page = async () => {
   // });
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
+      <h1 className="m-5">محصولات فروشگاه:</h1>
       <div className="max-w-[40rem] mx-auto">
         <Form createProduct={createProduct} providerId={"15"} />
       </div>

@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/app/components/ui/form";
 import { Input } from "@/app/components/ui/input";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { prisma } from "@/db";
 
 const formSchema = z.object({
@@ -24,9 +24,6 @@ const formSchema = z.object({
   }),
   price: z.string(),
   description: z.string(),
-  min: z.string(),
-  max: z.string(),
-  prepayment: z.string(),
 });
 
 interface Props {
@@ -34,11 +31,8 @@ interface Props {
     description: string,
     name: string,
     price: string,
-    min: string,
-    max: string,
-    prepayment: string,
     providerId: string
-  ) => Promise<void>;
+  ) => void;
   providerId: string;
 }
 
@@ -51,9 +45,6 @@ export const ShopForm: FC<Props> = ({ createProduct, providerId }) => {
       name: "",
       price: "",
       description: "",
-      max: "",
-      min: "",
-      prepayment: "",
     },
   });
 
@@ -61,17 +52,20 @@ export const ShopForm: FC<Props> = ({ createProduct, providerId }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    await createProduct(
+    console.log(values.name)
+    createProduct(
       values.description,
       values.name,
       values.price,
-      values.min,
-      values.max,
-      values.prepayment,
       providerId
     );
     setSuccess(true);
   }
+  // useEffect(() => {
+  //   if (success) {
+  //     setTimeout(() => setSuccess(false), 1000);
+  //   }
+  // }, [success]);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -91,7 +85,6 @@ export const ShopForm: FC<Props> = ({ createProduct, providerId }) => {
             </FormItem>
           )}
         />
-        <div className="grid grid-cols-2 gap-3">
           <FormField
             control={form.control}
             name="price"
@@ -105,47 +98,7 @@ export const ShopForm: FC<Props> = ({ createProduct, providerId }) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="min"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="capitalize">حداقل</FormLabel>
-                <FormControl>
-                  <Input placeholder="حداقل" type="number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="max"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="capitalize">حداکثر</FormLabel>
-                <FormControl>
-                  <Input placeholder="حداکثر" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="prepayment"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="capitalize">پیش پرداخت</FormLabel>
-                <FormControl>
-                  <Input placeholder="پیش پرداخت" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <FormField
+                  <FormField
           control={form.control}
           name="description"
           render={({ field }) => (

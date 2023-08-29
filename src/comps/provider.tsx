@@ -1,5 +1,5 @@
 "use client";
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 import { MantineProvider, createEmotionCache } from "@mantine/core";
 import rtlPlugin from "stylis-plugin-rtl";
 
@@ -9,7 +9,7 @@ const rtlCache = createEmotionCache({
 });
 const Provider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <SessionProvider>
+    // <SessionProvider>
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
@@ -18,7 +18,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       >
         {children}
       </MantineProvider>
-    </SessionProvider>
+    // </SessionProvider>
   );
 };
 

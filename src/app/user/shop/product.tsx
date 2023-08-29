@@ -10,9 +10,9 @@ interface Props {
   description: string;
   min: number | null;
   max: number | null;
-  price: number;
+  price: string;
   id: string;
-  prepayment: number | null;
+  prepayment: number | string;
   image: string | null;
   createLoan: any;
   providerId: any

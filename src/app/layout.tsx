@@ -2,6 +2,7 @@ import "./globals.css";
 import { Montserrat, Vazirmatn } from "next/font/google";
 import Provider from "@/comps/provider";
 import Header from "@/app/header";
+import { Toaster } from "@/app/components/ui/toaster"
 // import { getServerSession } from "next-auth/next";
 // import { authOptions } from "./api/auth/[...nextauth]/route";
 // import { Session } from "next-auth";
@@ -26,6 +27,7 @@ export default async function RootLayout({
           <Provider>
             <Header />
             <main className="container mx-auto">{children}</main>
+            <Toaster />
           </Provider>
       </body>
     </html>

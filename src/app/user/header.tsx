@@ -24,8 +24,8 @@ const UserHeader: FC<{
               <Button className="w-full bg-cyan-400">فروشگاه</Button>
             </Link>
           ) : (
-            <Link href={"/user/buildshop"}>
-              <Button className="w-full bg-cyan-400">ساخت فروشگاه</Button>
+            <Link href={"/user/shop"}>
+              <Button className="w-full bg-cyan-400 text-black">ساخت فروشگاه</Button>
             </Link>
           )}
         </div>

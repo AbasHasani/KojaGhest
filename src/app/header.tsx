@@ -146,21 +146,21 @@ export function Header() {
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const { classes, theme } = useStyles();
-
+  const session = useSession();
   const links = mockdata.map((item) => (
     <Link href={`/products?category=${item.title}`} key={item.title}>
-    <UnstyledButton className={classes.subLink}>
-      <Group noWrap align="flex-start">
-        <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon size={rem(22)} color={theme.fn.primaryColor()} />
-        </ThemeIcon>
-        <div>
-          <Text size="sm" fw={500}>
-            {item.title}
-          </Text>
-        </div>
-      </Group>
-    </UnstyledButton>
+      <UnstyledButton className={classes.subLink}>
+        <Group noWrap align="flex-start">
+          <ThemeIcon size={34} variant="default" radius="md">
+            <item.icon size={rem(22)} color={theme.fn.primaryColor()} />
+          </ThemeIcon>
+          <div>
+            <Text size="sm" fw={500}>
+              {item.title}
+            </Text>
+          </div>
+        </Group>
+      </UnstyledButton>
     </Link>
   ));
 
@@ -235,9 +235,15 @@ export function Header() {
           </Group>
 
           <Group className={classes.hiddenMobile}>
-            <Link href="/signin">
-              <Button>ورود</Button>
-            </Link>
+            {session.status == "unauthenticated" ? (
+              <Link href="/signin">
+                <Button>ورود</Button>
+              </Link>
+            ) : (
+              <Link href="/user">
+                <Button>پروفایل</Button>
+              </Link>
+            )}
           </Group>
 
           <Burger

@@ -75,7 +75,7 @@ const Page = async () => {
                 <p>سود: %{loan.intrest}</p>
                 <p>مقدار وام: {loan.value}</p>
               </div>
-              <Button className="bg-slate-300">وام دهنده</Button>
+              <Button className="bg-slate-300 text-black hover:text-white">وام دهنده</Button>
             </div>
           ))}
         </div>

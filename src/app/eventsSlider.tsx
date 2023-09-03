@@ -9,9 +9,9 @@ const Events = () => {
   const imgPaths = ["/p8.jpg", "/p9.jpg", "/p10.jpg"];
 
   return (
-    <div className="fullScreenMarginRight w-screen">
+    <div className="fullScreenMarginRight w-screen relative">
       <SearchBar />
-      <div className="relative overflow-hidden rounded-lg -mt-[12rem] z-10">
+      <div className="relative overflow-hidden rounded-lg z-10">
       {/* <h1 className="text-center p-3 text-lg font-bold">جشنواره ها</h1> */}
         <Carousel
           className="w-full"
@@ -35,7 +35,7 @@ const Events = () => {
                 opacity: 0,
                 cursor: "default",
               },
-              margin: "0 5rem"
+              // margin: "0 5rem"
             },
           }}
         >

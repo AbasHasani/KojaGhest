@@ -26,8 +26,8 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-around md:px-2 relative z-20">
-      <p className="font-extrabold md:text-3xl text-xl mb-10 text-center">
+    <div className="w-full flex flex-col items-center justify-around md:px-2 absolute z-20 left-1/2 -translate-x-1/2 pt-2">
+      <p className="font-extrabold md:text-3xl text-xl mb-10 text-center text-white">
         سایتی برای پیدا کردن وام های مردمی
       </p>
       <Input
@@ -48,7 +48,7 @@ const SearchBar = () => {
           </div>
         }
       />
-      <div className="w-full mt-5 text-center" style={{ maxWidth: "30em" }}>
+      <div className="w-full mt-5 text-center text-white" style={{ maxWidth: "30em" }}>
         دیگه لازم نیست دنبال وام از جاهای مختلف بگردی با کجا قسط هر قسطی با هر
         شرایطی رو میتونی اینجا پیدا کنی
       </div>

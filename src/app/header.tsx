@@ -269,9 +269,9 @@ export function Header() {
             color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
           />
 
-          <a href="#" className={classes.link}>
+          <Link href="/" className={classes.link}>
             خانه
-          </a>
+          </Link>
           <UnstyledButton className={classes.link} onClick={toggleLinks}>
             <Center inline>
               <Box component="span" mr={5}>
@@ -281,15 +281,15 @@ export function Header() {
             </Center>
           </UnstyledButton>
           <Collapse in={linksOpened}>{links}</Collapse>
-          <a href="#" className={classes.link}>
-            آموزش
-          </a>
-          <a href="#" className={classes.link}>
+          <Link href="providers" className={classes.link}>
             ارائه دهندگان
-          </a>
-          <a href="#" className={classes.link}>
+          </Link>
+          <Link href="/learning" className={classes.link}>
+            آموزش
+          </Link>
+          <Link href="/aboutus" className={classes.link}>
             درباره ما
-          </a>
+          </Link>
 
           <Divider
             my="sm"
@@ -297,8 +297,15 @@ export function Header() {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            {session.status == "unauthenticated" ? (
+              <Link href="/signin">
+                <Button>ورود</Button>
+              </Link>
+            ) : (
+              <Link href="/user">
+                <Button>پروفایل</Button>
+              </Link>
+            )}
           </Group>
         </ScrollArea>
       </Drawer>

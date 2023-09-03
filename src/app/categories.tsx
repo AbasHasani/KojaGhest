@@ -30,7 +30,7 @@ const Categories = () => {
                 maskImage: "linear-gradient(to bottom, transparent, black)",
               }}
             />
-            <p className="relative transition-all group-hover:bg-white/50 group-hover:text-white p-1 py-2 rounded-3xl mx-10">
+            <p className="relative transition-all bg-black/50 text-white mt-1 group-hover:bg-white/50 group-hover:text-black p-1 py-2 rounded-3xl mx-10">
               {category.title}
             </p>
           </Link>

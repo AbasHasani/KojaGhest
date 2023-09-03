@@ -4,7 +4,7 @@ const Page = async () => {
   return (
     <div>
       <h1 className="text-center border-info p-3 mb-8">آموزش</h1>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
         {Array(6)
           .fill(null)
           .map((_, i) => (

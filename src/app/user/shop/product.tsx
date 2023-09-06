@@ -33,7 +33,7 @@ const Product: FC<Props> = ({
   const [openAddPanel, setOpenAddPanel] = useState(false);
   return (
     <div className="bg-emerald-500/30 rounded overflow-hidden mb-2">
-      <div className="grid grid-cols-3">
+      <div className="md:grid flex flex-col grid-cols-3">
         <div className="flex gap-3 items-center bg-red-6000 p-1 text-black">
           <div className="relative h-[8rem] w-[6rem] rounded overflow-hidden">
             <Image

@@ -50,7 +50,10 @@ const OTP = () => {
   }, [timeLeft]);
   return (
     <div
-      className={`flex translate-x-[${hasRequested ? "100%" : "0"}] transition-all`}
+      className={`flex transition-all`}
+      style={{
+        transform: `translateX(${hasRequested ? "100%" : "0"})`
+      }}
     >
       <div className="min-w-full flex flex-col gap-3 justify-around items-center p-3">
         <p>شماره موبایل خود را وارد کنید</p>

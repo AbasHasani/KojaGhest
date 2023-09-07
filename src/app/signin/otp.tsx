@@ -12,10 +12,11 @@ const OTP = () => {
   const [number, setNumber] = useState("");
   const { toast } = useToast();
 
+  // useEffect(() => {
+  //   setTimeLeft(120);
+  // }, [hasRequested]);
   useEffect(() => {
     setTimeLeft(120);
-  }, [hasRequested]);
-  useEffect(() => {
     let timerInterval: any;
 
     const startTimer = () => {
@@ -29,7 +30,7 @@ const OTP = () => {
     }
 
     return () => clearInterval(timerInterval); // Clean up the interval on unmount
-  }, [timeLeft]);
+  }, [hasRequested]);
 
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
@@ -49,7 +50,7 @@ const OTP = () => {
   }, [timeLeft]);
   return (
     <div
-      className={`flex translate-x-[${hasRequested ? 100 : 0}%] transition-all`}
+      className={`flex translate-x-[${hasRequested ? "100%" : "0"}] transition-all`}
     >
       <div className="min-w-full flex flex-col gap-3 justify-around items-center p-3">
         <p>شماره موبایل خود را وارد کنید</p>
@@ -71,7 +72,7 @@ const OTP = () => {
         >
           Next
         </Button>
-        {number.length}
+        {hasRequested && number.length}
       </div>{" "}
       <div className="min-w-full flex flex-col justify-around items-center p-3">
         <p>کدی که دریافت کردید را وارد کنید</p>

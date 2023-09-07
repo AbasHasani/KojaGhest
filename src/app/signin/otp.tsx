@@ -61,7 +61,7 @@ const OTP = () => {
         />
         <Button
           onClick={() => {
-            if (number.length != 11) return;
+            // if (number.length != 11) return;
             setHasRequested(true);
 
             toast({

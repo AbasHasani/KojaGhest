@@ -4,6 +4,7 @@ import { Button } from "@/app/components/ui/button";
 import { prisma } from "@/db";
 import UserHeader from "./header";
 import Image from "next/image";
+import { getUser } from "./session";
 
 const loans = [
   {

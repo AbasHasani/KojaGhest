@@ -5,12 +5,17 @@ import Product from "./product";
 
 interface Props {
   products: {
+    id: string;
     name: string;
     description: string;
+    image: string | null;
+    loans: number | null;
+    prepayment: number | null;
+    amount: number;
+    createdAt: Date;
+    updatedAt: Date;
     price: number;
-    prepayment: number;
-    image: string;
-    id: number;
+    providerId: string;
   }[];
 }
 

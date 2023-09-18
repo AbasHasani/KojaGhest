@@ -7,9 +7,9 @@ interface Props {
 }
 
 const Page = async ({ params: { id } }: Props) => {
-  // const provider = await prisma.provider.findUnique({ where: { id } });
-  // const products = await prisma.product.findMany({ where: { providerId: id } });
-  const getu = await new Promise((res, rej) => setTimeout(() => res(""), 2000));
+  const provider = await prisma.provider.findUnique({ where: { id } });
+  const products = await prisma.product.findMany({ where: { providerId: id } });
+  // const getu = await new Promise((res, rej) => setTimeout(() => res(""), 2000));
 
   return (
     <div className="flex flex-col gap-5">
@@ -18,25 +18,24 @@ const Page = async ({ params: { id } }: Props) => {
           <Image fill alt="" src="/p2.jpg" className="rounded" />
         </div>
         <div className="flex flex-col justify-end gap-3 mb-3">
-          <p className="">لندو</p>
+          <p className="">{provider?.name}</p>
           <Link
             href={"https://www.lendo.ir"}
             className="text-blue-500 italic underline"
           >
-            سایت
+            {provider?.website}
           </Link>
         </div>
       </div>
       {/* info */}
       <div className="flex flex-col gap-3 border p-5 rounded mb-5">
-        <p>
+        {/* <p>
           <span>انواع ضمانت:</span>
-          <span>چک </span>
-          <span>سفته</span>
-        </p>
+          <span>{provider?.specialContracts} </span>
+        </p> */}
         <p>
           <span>سقف میزان اعتبار:</span>
-          <span>10000000</span>
+          <span>{provider?.highestCredit}</span>
         </p>
         <p>
           <span>قرارداد های خاص:</span>
@@ -59,10 +58,10 @@ const Page = async ({ params: { id } }: Props) => {
         <div>
           <h2>محصولات:</h2>
           <div>
-            {Array(3).fill(null).map((_,i) => (
-              <div key={i} className="flex items-center justify-around gap-5 p-1 mb-2 border rounded">
-                <p>محصول {i}</p>
-                <p>قیمت: 12000000</p>
+            {products.map(({id, name, price}, i) => (
+              <div key={id} className="flex items-center justify-around gap-5 p-1 mb-2 border rounded">
+                <p>{name}</p>
+                <p>قیمت: {price}</p>
                 <div className="relative w-[5rem] h-[7rem]">
                   <Image fill alt="" src={`/p${i+1}.jpg`} className="object-cover rounded" />
                 </div>

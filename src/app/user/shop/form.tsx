@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -17,6 +16,7 @@ import {
 import { Input } from "@/app/components/ui/input";
 import { FC, useEffect, useState } from "react";
 import { prisma } from "@/db";
+import {useRouter} from "next/navigation"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -30,9 +30,9 @@ interface Props {
   createProduct: (
     description: string,
     name: string,
-    price: string,
+    price: number,
     providerId: string
-  ) => void;
+  ) => Promise<void>;
   providerId: string;
 }
 
@@ -47,7 +47,7 @@ export const ShopForm: FC<Props> = ({ createProduct, providerId }) => {
       description: "",
     },
   });
-
+  const router = useRouter();
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -56,9 +56,10 @@ export const ShopForm: FC<Props> = ({ createProduct, providerId }) => {
     createProduct(
       values.description,
       values.name,
-      values.price,
+      Number(values.price),
       providerId
     );
+    router.refresh()
     setSuccess(true);
   }
   // useEffect(() => {

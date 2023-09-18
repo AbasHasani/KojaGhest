@@ -5,20 +5,10 @@ import UserHeader from "./header";
 // import { getUser } from "./session";
 
 const UserLayout = async ({ children }: { children: React.ReactNode }) => {
-  // const session = await getServerSession(authOptions);
-  // const { id } = await getUser();
-  // const hasProvider = await prisma.provider.findUnique({
-  //   where: { userId: id },
-  // });
   return (
     <div>
       {/* @ts-ignore */}
-      <UserHeader
-        name="Abas Hasani"
-        email="14abbas.hassani@gmail.com"
-        image="/p2.jpg"
-        hasProvider={false}
-      />
+      <UserHeader />
       {children}
     </div>
   );

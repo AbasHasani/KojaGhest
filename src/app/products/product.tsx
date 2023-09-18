@@ -3,18 +3,17 @@ import Link from "next/link";
 import { FC } from "react";
 
 interface Props {
-  id: number;
+  id: string;
   name: string;
   description: string;
   image: string | null;
-  // loans: number | null;
+  loans: number | null;
   prepayment: number | null;
-  // min: number | null;
-  // max: number | null;
-  // createdAt: Date;
-  // updatedAt: Date;
+  amount: number;
+  createdAt: Date;
+  updatedAt: Date;
   price: number;
-  // providerId: string;
+  providerId: string;
 }
 
 const Product: FC<Props> = ({ id, name, image, description, prepayment, price }) => {

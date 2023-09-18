@@ -1,9 +1,9 @@
-"use client";
 import { prisma } from "@/db";
 import { ShopForm as Form } from "./form";
 import Header from "./header";
 import Product from "./product";
 import { useState } from "react";
+import { getUser } from "../session";
 
 // const products = [
 //   {
@@ -127,115 +127,87 @@ import { useState } from "react";
 //   // })
 // }
 
-const Page = () => {
-  // const { id: userId, name } = await getUser();
-  // const shop = await prisma.provider.findUnique({ where: { userId } });
-  // const products = await prisma.product.findMany({
-  //   where: { providerId: shop?.id },
-  // });
-  const [products, setProducts] = useState<
-    {
-      description: string;
-      name: string;
-      price: string;
-      min: number;
-      max: number;
-      prepayment: number;
-      providerId: string;
-      loans: number;
-      id: string;
-      percent: number;
-      image: "";
-    }[]
-  >([]);
-  const [loans, setLoans] = useState<
-    {
-      description: string;
-      name: string;
-      price: string;
-      min: number;
-      max: number;
-      prepayment: number;
-      providerId: string;
-      productId: string;
-      id: string;
-      percent: number;
-      image: "";
-    }[]
-  >([]);
+const createProduct = async (
+  description: string,
+  name: string,
+  price: number,
+  providerId: string
+) => {
+  "use server";
+  const provider = await prisma.provider.findUnique({
+    where: { id: providerId },
+  });
+  await prisma.product.create({
+    data: {
+      description,
+      name,
+      price,
+      loans: 0,
+      image: "",
+      prepayment: 0,
+      providerId,
+    },
+  });
+};
 
-  const createProduct = (
-    description: string,
-    name: string,
-    price: string,
-    providerId: string
-  ) => {
-    setProducts([
-      ...products,
-      {
-        description,
-        name,
-        price,
-        min: 0,
-        max: 0,
-        prepayment: 0,
-        percent: 0,
-        providerId,
-        id: Math.random().toString(15),
-        image: "",
-        loans: 0,
+const createLoan = async (
+  amount: number,
+  prepayment: number,
+  percent: number,
+  providerId: string,
+  productId: string
+) => {
+  "use server";
+  await prisma.loan.create({
+    data: {
+      amount,
+      prepayment,
+      percent,
+      providerId,
+      productId,
+    },
+  });
+  const product = await prisma.product.findUnique({
+    where: { id: productId },
+  });
+  await prisma.product.update({
+    where: { id: productId },
+    data: {
+      amount: {
+        set: Math.max(amount, product?.amount || 0),
       },
-    ]);
-  };
+      prepayment: {
+        set:
+          (product?.prepayment || 0) > 0
+            ? Math.min(prepayment, product?.prepayment || 0)
+            : prepayment,
+      },
+      percent: {
+        set:
+          (product?.percent || 0) > 0
+            ? Math.min(percent, product?.percent || 0)
+            : percent,
+      },
+      loans: {
+        increment: 1
+      }
+    },
+  });
+};
 
-  const createLoan = (
-    min: number,
-    max: number,
-    prepayment: number,
-    percent: number,
-    providerId: string,
-    productId: string
-  ) => {
-    const product = products.filter((prod) => prod.id == productId)[0];
-    setLoans([
-      ...loans,
-      {
-        min,
-        max,
-        name: product.name,
-        image: "",
-        percent,
-        prepayment,
-        providerId,
-        productId,
-        description: product.description,
-        price: product.price,
-        id: Math.random().toString(15),
-      },
-    ]);
-    setProducts((prev) =>
-      prev.map((prod) => {
-        if (prod.id === productId) {
-          return {
-            ...prod,
-            loans: prod.loans + 1,
-            min: !prod.min ? min : prod.min > min ? min : prod.min,
-            max: !prod.max ? max: prod.max >max ? prod.max : max,
-            percent: !prod.percent ? percent : prod.percent > percent ? percent : prod.percent,
-            prepayment: !prod.prepayment ? prepayment : prod.prepayment > prepayment ? prepayment : prod.prepayment
-          };
-        } else {
-          return prod;
-        }
-      })
-    );
-  };
+const Page = async () => {
+  const { id: userId, name } = await getUser();
+  const shop = await prisma.provider.findUnique({ where: { userId } });
+  const products = await prisma.product.findMany({
+    where: { providerId: shop?.id },
+  });
+
   return (
     <div>
       {/* <Header /> */}
       <h1 className="m-5">محصولات فروشگاه:</h1>
       <div className="max-w-[40rem] mx-auto">
-        <Form createProduct={createProduct} providerId={"15"} />
+        <Form createProduct={createProduct} providerId={shop?.id || ""} />
       </div>
       <div className="mt-5">
         {products.map((product) => (
@@ -243,7 +215,7 @@ const Page = () => {
             key={product.id}
             {...product}
             createLoan={createLoan}
-            providerId={"45"}
+            providerId={shop?.id}
           />
         ))}
       </div>

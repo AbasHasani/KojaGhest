@@ -19,34 +19,35 @@ import { FC, useState } from "react";
 import { prisma } from "@/db";
 
 const formSchema = z.object({
-  min: z.string(),
-  max: z.string(),
+  amount: z.string(),
   percent: z.string(),
   prepayment: z.string(),
 });
 
 interface Props {
   createLoan: (
-    min: string,
-    max: string,
-    prepayment: string,
-    percent: string,
+    amount: number,
+    prepayment: number,
+    percent: number,
     productId: string,
     providerId: string
   ) => Promise<void>;
   providerId: string;
-  productId: string
+  productId: string;
 }
 
-export const ProductForm: FC<Props> = ({createLoan,providerId, productId }) => {
+export const ProductForm: FC<Props> = ({
+  createLoan,
+  providerId,
+  productId,
+}) => {
   const [success, setSuccess] = useState(false);
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       percent: "",
-      max: "",
-      min: "",
+      amount: "",
       prepayment: "",
     },
   });
@@ -55,7 +56,13 @@ export const ProductForm: FC<Props> = ({createLoan,providerId, productId }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    await createLoan(values.min, values.max, values.percent, values.prepayment, providerId, productId);
+    await createLoan(
+      Number(values.amount),
+      Number(values.percent),
+      Number(values.prepayment),
+      providerId,
+      productId
+    );
     setSuccess(true);
   }
   return (
@@ -64,12 +71,16 @@ export const ProductForm: FC<Props> = ({createLoan,providerId, productId }) => {
         <div className="grid grid-cols-2 gap-3">
           <FormField
             control={form.control}
-            name="min"
+            name="amount"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="capitalize">حداقل</FormLabel>
+                <FormLabel className="capitalize">مقدار</FormLabel>
                 <FormControl>
-                  <Input className="bg-accent border-0" placeholder="حداقل" {...field} />
+                  <Input
+                    className="bg-accent border-0"
+                    placeholder="مقدار"
+                    {...field}
+                  />
                 </FormControl>
                 {/* <FormDescription>
                 برای فروشگاه خود نام و ایمیل انتخاب کنید
@@ -78,19 +89,7 @@ export const ProductForm: FC<Props> = ({createLoan,providerId, productId }) => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="max"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="capitalize">حداکثر</FormLabel>
-                <FormControl>
-                  <Input className="bg-accent border-0" placeholder="حداکثر" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
           <FormField
             control={form.control}
             name="percent"
@@ -98,7 +97,12 @@ export const ProductForm: FC<Props> = ({createLoan,providerId, productId }) => {
               <FormItem>
                 <FormLabel className="capitalize">سود</FormLabel>
                 <FormControl>
-                  <Input className="bg-accent border-0" placeholder="سود" type="number" {...field} />
+                  <Input
+                    className="bg-accent border-0"
+                    placeholder="سود"
+                    type="number"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -111,7 +115,11 @@ export const ProductForm: FC<Props> = ({createLoan,providerId, productId }) => {
               <FormItem>
                 <FormLabel className="capitalize">پیش پرداخت</FormLabel>
                 <FormControl>
-                  <Input className="bg-accent border-0" placeholder="پیش پرداخت" {...field} />
+                  <Input
+                    className="bg-accent border-0"
+                    placeholder="پیش پرداخت"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -82,7 +82,7 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       gridTemplateColumns: {
-        fluid: "repeat(auto-fit, minmax(15rem, 1fr))"
+        fluid: "repeat(auto-fit, minmax(13rem, 1fr))"
       }
     },
   },

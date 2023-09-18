@@ -8,9 +8,8 @@ import { truncateString } from "../../../lib/utils";
 interface Props {
   name: string;
   description: string;
-  min: number | null;
-  max: number | null;
-  price: string;
+  amount: number,
+  price: number;
   id: string;
   prepayment: number | string;
   image: string | null;
@@ -21,8 +20,7 @@ interface Props {
 const Product: FC<Props> = ({
   name,
   description,
-  min,
-  max,
+  amount,
   price,
   image,
   id,
@@ -49,8 +47,6 @@ const Product: FC<Props> = ({
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3 p-2 text-cyan-100">
-          <p className="text-center p-2 rounded bg-accent">حداقل: {min}</p>
-          <p className="text-center p-2 rounded bg-accent">حداکثر: {max}</p>
           <p className="text-center p-2 rounded bg-accent">قیمت: {price}</p>
           <p className="text-center p-2 rounded bg-accent">
             پیش پرداخت: {prepayment}

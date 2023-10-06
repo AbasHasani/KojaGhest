@@ -1,6 +1,7 @@
+"use client"
 import { AiFillStar, AiOutlineFlag } from "react-icons/ai";
 import { MdOutlineKeyboardArrowLeft, MdLocationOn } from "react-icons/md";
-const OnlineShops = ({loans}:any) => {
+const OnlineShops = ({loans, takeLoan, session}:any) => {
   return (
     <div className="flex flex-col gap-5 border p-5 rounded mt-3">
       <div className="flex justify-between">
@@ -64,9 +65,17 @@ const OnlineShops = ({loans}:any) => {
                     آگهی
                   </p>
                   <p className="text-red-500">{loan.percent}</p>
-                  <p className="bg-red-500 text-white px-2 py-1 rounded">
+                  <button className="bg-red-500 text-white px-2 py-1 rounded" onClick={() => takeLoan(
+                  loan.amount,
+                  loan.percent,
+                  loan.prepayment,
+                  loan.time,
+                  loan.productId,
+                  loan.providerId,
+                  session.id
+                )}>
                     خرید اینترنتی
-                  </p>
+                  </button>
                 </div>
               </div>
             ))}
